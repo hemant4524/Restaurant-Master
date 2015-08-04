@@ -1,0 +1,70 @@
+<resources>
+    <style name="MockedAccountLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="singleAccount">true</item>
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/accent</item>
+
+    </style>
+
+    <style name="table_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="ToolBarTheme" parent="Theme.AppCompat">
+        <!-- Drawer arrow style and color -->
+        <!-- Background color of toolbar. -->
+        <item name="android:background">@color/primary</item>
+
+        <!-- android:textColorPrimary is the  color of the title text
+             in the Toolbar, in the Theme.AppCompat theme:  -->
+        <item name="android:textColorPrimary">#ffffff</item>
+        <!-- android:textColorPrimaryInverse is the  color of the title
+             text in the Toolbar, in the Theme.AppCompat.Light theme:  -->
+        <!-- android:actionMenuTextColor is the color of the text of
+              action (menu) items in the Toolbar, at least in the
+              Theme.AppCompat theme.
+              For some reason, they already get the textColorPrimary
+              when running on API 21, but not on older versions of
+              Android, so this is only necessary to support older
+              Android versions.-->
+
+
+        <!-- android:textColorSecondary is the color of the menu
+             overflow icon (three vertical dots). It also overwrite drawer icon color.-->
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="ThemeDetail" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlNormal">#ffc50c19</item>
+        <item name="colorControlActivated">#ff620a16</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
+    <style name="GreenTextInputLayout" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textColorHint">#ffc1bbb4</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <string name="lbl_username">Username</string>
+    <string name="lbl_passwd">Password</string>
+    <string name="lbl__forgot_passwd">Forgot password ?</string>
+    <string name="lbl_login">Log In</string>
+    <string name="lbl_singup">SIGN UP</string>
+    <string name="lbl_guest_user">GUEST USER</string>
+</resources>

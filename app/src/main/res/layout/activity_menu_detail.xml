@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.htech.restaurant.activity.MenuDetailActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/menu_detail_toolbar"></include>
+
+    <view
+        android:id="@+id/activity_menu_detail_recyclerview"
+        class="android.support.v7.widget.RecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp" />
+
+</LinearLayout>

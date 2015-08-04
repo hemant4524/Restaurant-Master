@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Restaurant</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="text_dismiss">Dismiss</string>
+    <string name="title_activity_menu_detail">MenuDetailActivity</string>
+    <string name="title_activity_remark">Food Remark</string>
+</resources>

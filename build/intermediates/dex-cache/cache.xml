@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-d56509eb1f71638193edb1304bd3ef2fbcda9d55.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-fbff1de14217410d65c54562e2f4b82497060a12.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/it.neokree/MaterialNavigationDrawer/1.3.3/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="0640bc34b0f25196f82fe1e707a437bd4a405933">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-f16e068331cca5d525ed1d6fc7101b2a0252ef7c.jar" />
+    </item>
+    <item
+        jar="/Users/software/Desktop/Hemant/AndroidSdk/Latest/new/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-682bb01890d0c22e0fb3b27ba07e2901bd350e84.jar" />
+    </item>
+    <item
+        jar="/Users/software/Desktop/Hemant/AndroidSdk/Latest/new/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-682bb01890d0c22e0fb3b27ba07e2901bd350e84.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-a7bad5640991b2e48be8979159efd9f464cb4499.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-670574c0e4946528fe72a568273448422cc69539.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e1fa5e1123997a55e3ed65b44892993ff4b58cfe">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-c5f879012c8399b39bbd00c7de73b5752a2c1dc0.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="aba9317bc403d69d8a571c0a72acfe95698a5db0">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-cb8ef1f8fff0ef07fd506065a8c2f24a1d31ef7b.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3abb4b88f5a8a0584a9b01d3170d7165f12f8588">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-e66b441b9de12ccfcd584cf98cbe9d1382e67b07.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-a7bad5640991b2e48be8979159efd9f464cb4499.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e1fa5e1123997a55e3ed65b44892993ff4b58cfe">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-c5f879012c8399b39bbd00c7de73b5752a2c1dc0.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="aba9317bc403d69d8a571c0a72acfe95698a5db0">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-cb8ef1f8fff0ef07fd506065a8c2f24a1d31ef7b.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-d56509eb1f71638193edb1304bd3ef2fbcda9d55.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-670574c0e4946528fe72a568273448422cc69539.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/it.neokree/MaterialNavigationDrawer/1.3.3/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0640bc34b0f25196f82fe1e707a437bd4a405933">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-f16e068331cca5d525ed1d6fc7101b2a0252ef7c.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3abb4b88f5a8a0584a9b01d3170d7165f12f8588">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-e66b441b9de12ccfcd584cf98cbe9d1382e67b07.jar" />
+    </item>
+    <item
+        jar="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/software/AndroidStudioProjects/Restaurant/app/build/intermediates/pre-dexed/debug/classes-fbff1de14217410d65c54562e2f4b82497060a12.jar" />
+    </item>
+
+</items>

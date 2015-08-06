@@ -1,17 +1,23 @@
 package com.htech.restaurant.fragment;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.htech.restaurant.R;
 import com.htech.restaurant.adapter.TableAdapter;
+import com.htech.restaurant.common.Utils;
+import com.htech.restaurant.db.DatabaseService;
+import com.htech.restaurant.db.KeyValueStore;
 import com.htech.restaurant.vos.Table;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +33,7 @@ public class SelectTableFragment extends Fragment implements TableAdapter.OnItem
 
     private RecyclerView mRecyclerView;
     private String TAG = SelectTableFragment.class.getSimpleName();
+    private DatabaseService mDatabaseService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +46,14 @@ public class SelectTableFragment extends Fragment implements TableAdapter.OnItem
         // Set dynamic table list
         getTable();
 
+        // Create blank order blank record in order master table
+        createNewOrder();
+
+        try {
+            mDatabaseService = DatabaseService.getInstance(getActivity());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -62,10 +77,36 @@ public class SelectTableFragment extends Fragment implements TableAdapter.OnItem
 
     @Override
     public void onItemClickListener(int position) {
-        int table_number = (position+1);
+        int table_number = (position + 1);
         OrderTableFragment ordertable = new OrderTableFragment();
         ordertable.setTableIndex(table_number);
         //((MaterialNavigationDrawer)this.getActivity()).setFragmentChild(tableOrder, "order_table_fragment");
-        ((MaterialNavigationDrawer)this.getActivity()).setFragmentChild(ordertable, "Order for Table " + table_number);
+        ((MaterialNavigationDrawer) this.getActivity()).setFragmentChild(ordertable, "Order for Table " + table_number);
+    }
+
+    /**
+     * Create new oder for customer
+     */
+    public void createNewOrder() {
+        new DataBaseOperationAsyn().execute();
+    }
+
+    class DataBaseOperationAsyn extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            int id = mDatabaseService.createOrder("6/8/2015", "1", "1");
+            Log.d(TAG, "order created id:" + id);
+            return "" + id;
+        }
+
+        @Override
+        protected void onPostExecute(String oderId) {
+            super.onPostExecute(oderId);
+
+            Utils.saveValueInPreferences(getActivity(), KeyValueStore.KEY_ORDER_ID, "" + oderId);
+
+            // Log.d(TAG,"value from sharedpreferences :"+Utils.readValueFromPreferences(MenuDetailActivity.this,KeyValueStore.KEY_ORDER_ID));
+        }
     }
 }

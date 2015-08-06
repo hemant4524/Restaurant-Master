@@ -1,5 +1,6 @@
 package com.htech.restaurant.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,11 @@ import android.widget.Toast;
 import com.htech.restaurant.MyApplication;
 import com.htech.restaurant.R;
 import com.htech.restaurant.adapter.SubCategoryAdapter;
+import com.htech.restaurant.common.Utils;
 import com.htech.restaurant.db.DatabaseService;
-import com.htech.restaurant.vos.SubMenu;
+import com.htech.restaurant.db.KeyValueStore;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MenuDetailActivity extends AppCompatActivity implements SubCategoryAdapter.OnItemClickListener {
 
@@ -24,6 +24,7 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
     private SubCategoryAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private DatabaseService mDatabaseService;
+    private int mMainMenuId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,39 +33,24 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
         Toolbar mToolbar = (Toolbar) findViewById(R.id.menu_detail_toolbar);
         // setSupportActionBar(mToolbar);
 
-        int menuId = getIntent().getIntExtra("MenuId", 0);
-        Log.d(TAG, "selected menu id:" + menuId);
+        mMainMenuId = getIntent().getIntExtra("MenuId", 0);
+        Log.d(TAG, "selected menu id:" + mMainMenuId);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_menu_detail_recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getSubMenuData(menuId);
+        getSubMenuData(mMainMenuId);
+
+
 
     }
 
     /**
-     * Fetch table list
+     * get submenu from database
+     *
+     * @param id
      */
-    private void getSubMenuList() {
-        List<SubMenu> subCategories = new ArrayList<SubMenu>();
-
-        for (int i = 0; i < 12; i++) {
-            int id = (i + 1);
-            SubMenu category = new SubMenu();
-            category.setId(id);
-            category.setSubCatName("" + id);
-            subCategories.add(category);
-        }
-        mAdapter = new SubCategoryAdapter(this, subCategories, this);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onItemClickListener(int position) {
-        Log.d(TAG, "add item:" + position);
-    }
-
     public void getSubMenuData(int id) {
         try {
             mDatabaseService = DatabaseService.getInstance(MenuDetailActivity.this);
@@ -80,7 +66,49 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
         } else {
             Toast.makeText(MenuDetailActivity.this, "NO DATA", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    @Override
+    public void onItemClickListener(int argument_type, int submenu_id) {
+        String order_id = Utils.readValueFromPreferences(MenuDetailActivity.this, KeyValueStore.KEY_ORDER_ID);
+
+        // Create new row first time
+        // add item into oder transaction table
+        mDatabaseService.addOrderTransaction(order_id, "" + mMainMenuId, "" + submenu_id);
+
+        if (argument_type == SubCategoryAdapter.ADD_ITEM) {
+
+            mDatabaseService.updateOrderTransaction(order_id, "" + submenu_id, 1);
+
+        } else if (argument_type == SubCategoryAdapter.REMOVE_ITEM) {
+
+            // remove item from data base
+            mDatabaseService.updateOrderTransaction(order_id, "" + submenu_id, 0);
+
+        }
+    }
+
+    @Override
+    public void onItemClickListener(int id, String info) {
+        // add subcategory id into order transaction table
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SubCategoryAdapter.ADD_ITEM_REMARK) {
+                if (data != null) {
+                    // Change remark value in subcategory array list
+                    String message = data.getStringExtra(SubCategoryAdapter.REMARK_TEXT);
+                    Log.d(TAG, "remark value" + message);
+                }
+            }
+        }
+
+    }
+
+
+
 }

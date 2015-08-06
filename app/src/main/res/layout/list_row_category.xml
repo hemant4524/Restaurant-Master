@@ -27,10 +27,10 @@
 
             <TextView
                 android:id="@+id/list_row_tvTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:gravity="center"
+                android:gravity="left"
                 android:maxLines="3"
                 android:padding="8dp"
                 android:text="1"

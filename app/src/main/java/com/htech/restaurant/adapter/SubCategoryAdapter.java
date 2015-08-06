@@ -1,5 +1,6 @@
 package com.htech.restaurant.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,12 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     private List<SubMenu> mCategories;
     private Context mContext;
     private String TAG = SubCategoryAdapter.class.getSimpleName();
+    public static int ADD_ITEM = 1;
+    public static int REMOVE_ITEM = 2;
+    public static int ADD_ITEM_REMARK = 3;
+    public static String REMARK_TEXT ="remark";
+
+
 
     OnItemClickListener onItemClickListener;
 
@@ -30,6 +37,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
         mContext = pContext;
         mCategories = pCategories;
         onItemClickListener = pOnItemClickListener;
+
     }
 
     @Override
@@ -42,35 +50,29 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
     @Override
     public void onBindViewHolder(final TableViewHolder tableViewHolder, final int i) {
-        SubMenu category = mCategories.get(i);
+        final SubMenu category = mCategories.get(i);
         Log.d(TAG, "category name" + category.getSubCatName());
         tableViewHolder.textView.setText(category.getSubCatName());
 
-        tableViewHolder.tvTotalOder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tableViewHolder.ivMinus.setVisibility(View.VISIBLE);
-                onItemClickListener.onItemClickListener(i);
-            }
-        });
+
         tableViewHolder.ivPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tableViewHolder.ivMinus.setVisibility(View.VISIBLE);
-                onItemClickListener.onItemClickListener(i);
+                onItemClickListener.onItemClickListener(ADD_ITEM, category.getId());
             }
         });
         tableViewHolder.ivMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onItemClickListener(i);
+                onItemClickListener.onItemClickListener(REMOVE_ITEM, category.getId());
             }
         });
         tableViewHolder.ivRemark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, RemarkActivity.class);
-                mContext.startActivity(intent);
+                ((Activity)mContext).startActivityForResult(intent, ADD_ITEM_REMARK);
             }
         });
     }
@@ -102,13 +104,9 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
 
 
     public interface OnItemClickListener {
-        void onItemClickListener(int position);
+        void onItemClickListener(int argument_type,int submenu_id);
+        void onItemClickListener(int id,String info);
     }
 
-    public interface OnItemAddListener {
-        void itemAdd(int position);
-    }
-    public interface OnItemRemoveListener {
-        void itemRemove(int position);
-    }
+
 }

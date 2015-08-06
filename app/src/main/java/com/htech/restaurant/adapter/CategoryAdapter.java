@@ -44,12 +44,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.TableV
         Log.d(TAG, "category name" + category.getCatName());
         tableViewHolder.textView.setText(category.getCatName());
 
+        tableViewHolder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClickListener(i);
+            }
+        });
+
         tableViewHolder.imageViewDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onItemClickListener.onItemClickListener(i);
             }
         });
+
+
     }
 
     @Override

@@ -104,4 +104,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     public interface OnItemClickListener {
         void onItemClickListener(int position);
     }
+
+    public interface OnItemAddListener {
+        void itemAdd(int position);
+    }
+    public interface OnItemRemoveListener {
+        void itemRemove(int position);
+    }
 }

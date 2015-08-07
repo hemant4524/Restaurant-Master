@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.htech.restaurant.common.AppConstant;
 import com.htech.restaurant.vos.MainMenu;
+import com.htech.restaurant.vos.Order;
 import com.htech.restaurant.vos.SubMenu;
 
 import java.io.File;
@@ -31,6 +32,7 @@ public class DatabaseService extends SQLiteOpenHelper
 	private static String TABLE_SUBMENU = "sub_menu";
 	private static String TABLE_ORDER_MASTER = "order_master";
 	private static String TABLE_ORDER_TRANSACTION = "order_transaction";
+	private String TAG = DatabaseService.class.getSimpleName();
 
 	// private static Context myContext;
 	private DatabaseService(Context context) throws IOException
@@ -285,13 +287,14 @@ public class DatabaseService extends SQLiteOpenHelper
 		return subMenus;
 	}
 
-    /**
-     * Add new record in transaction table
-     * @param orderid
-     * @param mainMenuId
-     * @param submenu_id
-     * @return
-     */
+	/**
+	 * Add new record in transaction table
+	 * 
+	 * @param orderid
+	 * @param mainMenuId
+	 * @param submenu_id
+	 * @return
+	 */
 	public boolean addOrderTransaction(String orderid, String mainMenuId, String submenu_id)
 	{
 		int total = 0;
@@ -299,53 +302,52 @@ public class DatabaseService extends SQLiteOpenHelper
 		{
 
 			// Find last inserted record id
-			Cursor cursor = myDataBase.rawQuery("SELECT " + KeyValueStore.KEY_ORDER_TRANSACTION_QTY + " FROM " + TABLE_ORDER_TRANSACTION + " WHERE "
-					+ KeyValueStore.KEY_ORDER_ID + "=" + orderid + " AND " + KeyValueStore.KEY_ORDER_TRANSACTION_SUB_MENU_ID + "=" + submenu_id, null);
+			Cursor cursor = myDataBase
+					.rawQuery("SELECT " + KeyValueStore.KEY_ORDER_TRANSACTION_QTY + " FROM " + TABLE_ORDER_TRANSACTION + " WHERE "
+							+ KeyValueStore.KEY_ORDER_ID + "=" + orderid + " AND " + KeyValueStore.KEY_ORDER_TRANSACTION_SUB_MENU_ID + "="
+							+ submenu_id, null);
 
 			if (cursor.moveToFirst())
 			{
-				total = cursor.getInt(0);
+				// Do something when record available
+				Log.v(TAG, "addOrderTransaction():- Record already exist");
 			}
-			// total = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
-
-
-			// Find total is zero then create new record otherwise do nothing
-			if (total == 0)
+			else // If record not found then create new record
 			{
+
 				String sql = ("INSERT INTO " + TABLE_ORDER_TRANSACTION + "(" + KeyValueStore.KEY_ORDER_TRANSACTION_ORDER_ID + ", "
-						+ KeyValueStore.KEY_ORDER_TRANSACTION_MAIN_MENU_ID + ", " + KeyValueStore.KEY_ORDER_TRANSACTION_SUB_MENU_ID + ", " + KeyValueStore.KEY_ORDER_TRANSACTION_QTY + ") VALUES("
-						+ "'" + orderid + "', " + "'" + mainMenuId + "', " + "'" + submenu_id + "','1' ); ");
-				Log.v("addOrderTransaction ", sql);
+						+ KeyValueStore.KEY_ORDER_TRANSACTION_MAIN_MENU_ID + ", " + KeyValueStore.KEY_ORDER_TRANSACTION_SUB_MENU_ID + ", "
+						+ KeyValueStore.KEY_ORDER_TRANSACTION_QTY + ") VALUES(" + "'" + orderid + "', " + "'" + mainMenuId + "', " + "'" + submenu_id + "','0' ); ");
+				Log.v(TAG, "addOrderTransaction():-"+sql);
 				// Execute Query
 				myDataBase.beginTransaction();
 				myDataBase.execSQL(sql);
 				myDataBase.setTransactionSuccessful();
 				myDataBase.endTransaction();
 			}
-			else
-			{
-				// Do something
-				Log.v("addOrderTransaction ", "else total:"+total);
-			}
+			// total = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
+
+			// Find total is zero then create new record otherwise do nothing
+
 
 			return true;
 		}
 		catch (Exception SQLException)
 		{
-				Log.d("addOrderTransa Error:", "" + SQLException.getMessage());
+			Log.d("addOrderTransa Error:", "" + SQLException.getMessage());
 		}
 		return false;
 	}
 
-	public boolean updateOrderTransaction(String orderId, String subMenuId, int operationType)
+	public int updateOrderTransaction(String orderId, String subMenuId, int operationType)
 	{
-
+		int total = 0;
 		try
 		{
-			// Find last inserted record id
+			// Find Qty
 			Cursor cursor = myDataBase.rawQuery("SELECT " + KeyValueStore.KEY_ORDER_TRANSACTION_QTY + " FROM " + TABLE_ORDER_TRANSACTION + " WHERE "
 					+ KeyValueStore.KEY_ORDER_ID + "=" + orderId + " AND " + KeyValueStore.KEY_ORDER_TRANSACTION_SUB_MENU_ID + "=" + subMenuId, null);
-			int total = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
+			total = (cursor.moveToFirst() ? cursor.getInt(0) : 0);
 
 			if (operationType == 1)
 			{
@@ -353,7 +355,7 @@ public class DatabaseService extends SQLiteOpenHelper
 			}
 			else
 			{
-				if(total > 0)
+				if (total > 0)
 				{
 					total = total - 1;
 				}
@@ -368,7 +370,7 @@ public class DatabaseService extends SQLiteOpenHelper
 			myDataBase.setTransactionSuccessful();
 			myDataBase.endTransaction();
 			Log.v("UPDATE record done", strSQL);
-			return true;
+			return total;
 		}
 		catch (Exception SQLException)
 		{
@@ -376,7 +378,7 @@ public class DatabaseService extends SQLiteOpenHelper
 			SQLException.printStackTrace();
 
 		}
-		return false;
+		return total;
 	}
 
 	/**
@@ -408,5 +410,35 @@ public class DatabaseService extends SQLiteOpenHelper
 			SQLException.printStackTrace();
 		}
 		return id;
+	}
+
+	/**
+	 * Get sub menu from data base
+	 *
+	 * @return list of SubMenu
+	 */
+	public ArrayList<Order> getTotalOrde(int pOrderId)
+	{
+		ArrayList<Order> orders = new ArrayList<>();
+		String selectQuery = "SELECT t.id,sm.name,sm.price,t.remark FROM order_transaction t LEFT OUTER JOIN sub_menu  sm ON sm.id = t.sub_menu_id where t.order_id = "+pOrderId;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		if (cursor.moveToFirst())
+		{
+			do
+			{
+				Order order = new Order();
+				order.setOrder_trans_id(cursor.getInt(0));
+				order.setName(cursor.getString(1));
+				order.setPrice(cursor.getInt(2));
+				order.setRemark(cursor.getString(3));
+				order.setQty(cursor.getInt(3));
+				orders.add(order);
+			} while (cursor.moveToNext());
+		}
+		db.close();
+
+		return orders;
 	}
 }

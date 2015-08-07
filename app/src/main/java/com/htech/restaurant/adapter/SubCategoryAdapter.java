@@ -20,93 +20,128 @@ import java.util.List;
 /**
  * Created by software on 7/29/15.
  */
-public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.TableViewHolder> {
-    private List<SubMenu> mCategories;
-    private Context mContext;
-    private String TAG = SubCategoryAdapter.class.getSimpleName();
-    public static int ADD_ITEM = 1;
-    public static int REMOVE_ITEM = 2;
-    public static int ADD_ITEM_REMARK = 3;
-    public static String REMARK_TEXT ="remark";
+public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.TableViewHolder>
+{
+	private List<SubMenu> mCategories;
+	private Context mContext;
+	private String TAG = SubCategoryAdapter.class.getSimpleName();
+	public static int ADD_ITEM = 1;
+	public static int REMOVE_ITEM = 2;
+	public static int ADD_ITEM_REMARK = 3;
+	public static String REMARK_TEXT = "remark";
 
+	OnItemClickListener onItemClickListener;
 
+	public SubCategoryAdapter(Context pContext, List<SubMenu> pCategories, OnItemClickListener pOnItemClickListener)
+	{
+		mContext = pContext;
+		mCategories = pCategories;
+		onItemClickListener = pOnItemClickListener;
 
-    OnItemClickListener onItemClickListener;
+	}
 
-    public SubCategoryAdapter(Context pContext, List<SubMenu> pCategories, OnItemClickListener pOnItemClickListener) {
-        mContext = pContext;
-        mCategories = pCategories;
-        onItemClickListener = pOnItemClickListener;
+	@Override
+	public TableViewHolder onCreateViewHolder(ViewGroup viewGroup, int i)
+	{
+		View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_sub_category, null);
 
-    }
+		TableViewHolder viewHolder = new TableViewHolder(view);
+		return viewHolder;
+	}
 
-    @Override
-    public TableViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_sub_category, null);
+	@Override
+	public void onBindViewHolder(final TableViewHolder tableViewHolder, final int i)
+	{
+		final SubMenu category = mCategories.get(i);
+		Log.d(TAG, "category name" + category.getSubCatName());
+		tableViewHolder.textView.setText(category.getSubCatName());
 
-        TableViewHolder viewHolder = new TableViewHolder(view);
-        return viewHolder;
-    }
+		tableViewHolder.ivPlus.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
 
-    @Override
-    public void onBindViewHolder(final TableViewHolder tableViewHolder, final int i) {
-        final SubMenu category = mCategories.get(i);
-        Log.d(TAG, "category name" + category.getSubCatName());
-        tableViewHolder.textView.setText(category.getSubCatName());
+				int totalQty = onItemClickListener.onItemClickListener(ADD_ITEM, category.getId());
+				if (totalQty > 0)
+				{
+					tableViewHolder.ivMinus.setVisibility(View.VISIBLE);
+                    tableViewHolder.tvTotalOder.setVisibility(View.VISIBLE);
+					tableViewHolder.tvTotalOder.setText(""+totalQty);
+				}
+				else
+				{
+					tableViewHolder.ivMinus.setVisibility(View.INVISIBLE);
+                    tableViewHolder.tvTotalOder.setVisibility(View.INVISIBLE);
 
+                }
+			}
+		});
+		tableViewHolder.ivMinus.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
 
-        tableViewHolder.ivPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tableViewHolder.ivMinus.setVisibility(View.VISIBLE);
-                onItemClickListener.onItemClickListener(ADD_ITEM, category.getId());
-            }
-        });
-        tableViewHolder.ivMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickListener.onItemClickListener(REMOVE_ITEM, category.getId());
-            }
-        });
-        tableViewHolder.ivRemark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, RemarkActivity.class);
-                ((Activity)mContext).startActivityForResult(intent, ADD_ITEM_REMARK);
-            }
-        });
-    }
+                int totalQty = 	onItemClickListener.onItemClickListener(REMOVE_ITEM, category.getId());
+                if (totalQty > 0)
+                {
+                    tableViewHolder.ivMinus.setVisibility(View.VISIBLE);
+                    tableViewHolder.tvTotalOder.setVisibility(View.VISIBLE);
+					tableViewHolder.tvTotalOder.setText(""+totalQty);
+                }
+                else
+                {
+                    tableViewHolder.ivMinus.setVisibility(View.INVISIBLE);
+					tableViewHolder.tvTotalOder.setVisibility(View.INVISIBLE);
 
-    @Override
-    public int getItemCount() {
-        return (null != mCategories ? mCategories.size() : 0);
-    }
+                }
+			}
+		});
+		tableViewHolder.ivRemark.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(mContext, RemarkActivity.class);
+				((Activity) mContext).startActivityForResult(intent, ADD_ITEM_REMARK);
+			}
+		});
+	}
 
-    class TableViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
-        private ImageView imageView;
-        private TextView tvTotalOder;
-        private ImageView ivPlus;
-        private ImageView ivMinus;
-        private final ImageView ivRemark;
+	@Override
+	public int getItemCount()
+	{
+		return (null != mCategories ? mCategories.size() : 0);
+	}
 
-        public TableViewHolder(View itemView) {
-            super(itemView);
-            this.textView = (TextView) itemView.findViewById(R.id.list_row_tvTitle);
-            this.imageView = (ImageView) itemView.findViewById(R.id.list_row_ivThumbnail);
-            this.tvTotalOder = (TextView) itemView.findViewById(R.id.list_row_tvTotalOder);
-            this.ivPlus = (ImageView) itemView.findViewById(R.id.list_row_sub_ivPlus);
-            this.ivMinus = (ImageView) itemView.findViewById(R.id.list_row_sub_ivMinus);
-            this.ivRemark = (ImageView) itemView.findViewById(R.id.list_row_sub_ivInforamtion);
-            ivMinus.setVisibility(View.INVISIBLE);
-        }
-    }
+	class TableViewHolder extends RecyclerView.ViewHolder
+	{
+		private TextView textView;
+		private ImageView imageView;
+		private TextView tvTotalOder;
+		private ImageView ivPlus;
+		private ImageView ivMinus;
+		private final ImageView ivRemark;
 
+		public TableViewHolder(View itemView)
+		{
+			super(itemView);
+			this.textView = (TextView) itemView.findViewById(R.id.list_row_tvTitle);
+			this.imageView = (ImageView) itemView.findViewById(R.id.list_row_ivThumbnail);
+			this.tvTotalOder = (TextView) itemView.findViewById(R.id.list_row_tvTotalOder);
+			this.ivPlus = (ImageView) itemView.findViewById(R.id.list_row_sub_ivPlus);
+			this.ivMinus = (ImageView) itemView.findViewById(R.id.list_row_sub_ivMinus);
+			this.ivRemark = (ImageView) itemView.findViewById(R.id.list_row_sub_ivInforamtion);
+			ivMinus.setVisibility(View.INVISIBLE);
+		}
+	}
 
-    public interface OnItemClickListener {
-        void onItemClickListener(int argument_type,int submenu_id);
-        void onItemClickListener(int id,String info);
-    }
+	public interface OnItemClickListener
+	{
+		int onItemClickListener(int argument_type, int submenu_id);
 
+		void onItemClickListener(int id, String info);
+	}
 
 }

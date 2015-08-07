@@ -69,23 +69,25 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
     }
 
     @Override
-    public void onItemClickListener(int argument_type, int submenu_id) {
+    public int onItemClickListener(int argument_type, int submenu_id) {
+        int totalQty = 0;
         String order_id = Utils.readValueFromPreferences(MenuDetailActivity.this, KeyValueStore.KEY_ORDER_ID);
 
         // Create new row first time
         // add item into oder transaction table
-        mDatabaseService.addOrderTransaction(order_id, "" + mMainMenuId, "" + submenu_id);
+        mDatabaseService.addOrderTransaction(order_id, "" + MyApplication.SUBMENU.get(mMainMenuId).getId(), "" + submenu_id);
 
         if (argument_type == SubCategoryAdapter.ADD_ITEM) {
 
-            mDatabaseService.updateOrderTransaction(order_id, "" + submenu_id, 1);
+            totalQty= mDatabaseService.updateOrderTransaction(order_id, "" + submenu_id, 1);
 
         } else if (argument_type == SubCategoryAdapter.REMOVE_ITEM) {
 
             // remove item from data base
-            mDatabaseService.updateOrderTransaction(order_id, "" + submenu_id, 0);
+            totalQty = mDatabaseService.updateOrderTransaction(order_id, "" + submenu_id, 0);
 
         }
+        return totalQty;
     }
 
     @Override

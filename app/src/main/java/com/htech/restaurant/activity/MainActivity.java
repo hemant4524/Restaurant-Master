@@ -22,7 +22,7 @@ public class MainActivity extends MaterialNavigationDrawer {
         //setFirstAccountPhoto(getResources().getDrawable(R.drawable.photo));
 
         // create sections
-        this.addSection(newSection("Select Table", new SelectTableFragment()));
+        this.addSection(newSection("Restaurant", new SelectTableFragment()));
         this.addSection(newSection("Section 2", new FragmentIndex()));
         this.addSection(newSection("Section 3",R.drawable.ic_mic_white_24dp,new SelectTableFragment()).setSectionColor(Color.parseColor("#9c27b0")));
         this.addSection(newSection("Section", R.drawable.ic_hotel_grey600_24dp, new SelectTableFragment()).setSectionColor(Color.parseColor("#03a9f4")));

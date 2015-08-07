@@ -11,4 +11,6 @@
     <string name="text_dismiss">Dismiss</string>
     <string name="title_activity_menu_detail">MenuDetailActivity</string>
     <string name="title_activity_remark">Food Remark</string>
+
+    <string name="Rs">\u20B9</string>
 </resources>

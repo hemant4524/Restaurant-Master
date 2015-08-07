@@ -51,7 +51,6 @@
                 android:layout_toLeftOf="@+id/list_row_sub_ivPlus"
                 android:layout_centerVertical="true"
                 android:gravity="right"
-                android:text="x 1"
                 android:textColor="@color/primary"
                 android:textSize="20sp" />
 

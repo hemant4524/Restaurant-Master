@@ -47,16 +47,31 @@ public class OrderTableFragment extends Fragment
 
 	}
 
-	public void setTableIndex(int tableIndex)
+	public void setTableIndex(int tableIndex, boolean isActive)
 	{
 		try {
 			mDatabaseService = DatabaseService.getInstance(getActivity());
+
+//			String order_id = Utils.readValueFromPreferences(getActivity(), KeyValueStore.KEY_ORDER_ID);
+//			if(order_id != null)
+//			{
+//				mDatabaseService.findOrderId(order_id);
+//			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		tableId = tableIndex;
+		// Order is active then don't create new record
 		// Create blank order blank record in order master table
-		createNewOrder();
+		if(isActive)
+		{
+			// Do something when order is active
+		}
+		else
+		{
+			createNewOrder();
+
+		}
 
 	}
 
@@ -70,20 +85,39 @@ public class OrderTableFragment extends Fragment
 		// Assigning ViewPager View and setting the adapter
 		pager = (ViewPager) view.findViewById(R.id.pager);
 		pager.setAdapter(adapter);
+		pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+				Log.d(TAG, "tab selection position " + position);
+				if (position == 2) {
+					adapter.notifyDataSetChanged();
+				}
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
+
 
 		// Assiging the Sliding Tab Layout View
 		tabs = (SlidingTabLayout) view.findViewById(R.id.tabs);
 		tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
 		// Setting Custom Color for the Scroll bar indicator of the Tab View
-		tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer()
-		{
+		tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
 			@Override
-			public int getIndicatorColor(int position)
-			{
+			public int getIndicatorColor(int position) {
 				return getResources().getColor(R.color.tabsScrollColor);
 			}
 		});
+
 
 		pager.setCurrentItem(1);
 		// Setting the ViewPager For the SlidingTabsLayout
@@ -97,6 +131,7 @@ public class OrderTableFragment extends Fragment
 	public void onResume()
 	{
 		super.onResume();
+
 	}
 
 	/**
@@ -110,14 +145,21 @@ public class OrderTableFragment extends Fragment
 	}
 
 	/**
-	 * Create new oder record in background
+	 * Create new order record in background
 	 */
 	class DataBaseOperationAsyn extends AsyncTask<String, String, String>
 	{
 
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+		}
+
+		@Override
 		protected String doInBackground(String... params)
 		{
+			// Check oder id is already available then don't create new order
+
 			int id = mDatabaseService.createOrder(Utils.getCurrentDateTime(), ""+tableId, "1");
 			Log.d(TAG, "order created id:" + id);
 			return "" + id;
@@ -129,6 +171,7 @@ public class OrderTableFragment extends Fragment
 			super.onPostExecute(oderId);
 
 			Utils.saveValueInPreferences(getActivity(), KeyValueStore.KEY_ORDER_ID, "" + oderId);
+
 
 			// Log.d(TAG,"value from sharedpreferences :"+Utils.readValueFromPreferences(MenuDetailActivity.this,KeyValueStore.KEY_ORDER_ID));
 		}

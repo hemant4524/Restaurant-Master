@@ -31,7 +31,7 @@ public class Utils {
     public static String readValueFromPreferences(Context context,String key)
     {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String value = preferences.getString(key, "");
+        String value = preferences.getString(key, null);
         return value;
     }
 

@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.htech.restaurant.R;
 import com.htech.restaurant.adapter.TableAdapter;
+import com.htech.restaurant.common.Utils;
 import com.htech.restaurant.db.DatabaseService;
+import com.htech.restaurant.db.KeyValueStore;
 import com.htech.restaurant.vos.Table;
 
 import java.io.IOException;
@@ -29,6 +32,7 @@ public class SelectTableFragment extends Fragment implements TableAdapter.OnItem
 
     private RecyclerView mRecyclerView;
     private String TAG = SelectTableFragment.class.getSimpleName();
+    private DatabaseService mDatabaseService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +45,18 @@ public class SelectTableFragment extends Fragment implements TableAdapter.OnItem
         // Set dynamic table list
         getTable();
 
+        try {
+            mDatabaseService = DatabaseService.getInstance(getActivity());
 
+            mDatabaseService.findActiveTable();
+//			String order_id = Utils.readValueFromPreferences(getActivity(), KeyValueStore.KEY_ORDER_ID);
+//			if(order_id != null)
+//			{
+//				mDatabaseService.findOrderId(order_id);
+//			}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -67,10 +82,11 @@ public class SelectTableFragment extends Fragment implements TableAdapter.OnItem
     public void onItemClickListener(int position) {
 
         int table_number = (position + 1);
-
+        Log.d(TAG, "order table id:" + Utils.readValueFromPreferences(getActivity(), KeyValueStore.KEY_ORDER_ID));
+       boolean isActive = mDatabaseService.findOrderId(Utils.readValueFromPreferences(getActivity(), KeyValueStore.KEY_ORDER_ID));
 
         OrderTableFragment ordertable = new OrderTableFragment();
-        ordertable.setTableIndex(table_number);
+        ordertable.setTableIndex(table_number,isActive);
         //((MaterialNavigationDrawer)this.getActivity()).setFragmentChild(tableOrder, "order_table_fragment");
         ((MaterialNavigationDrawer) this.getActivity()).setFragmentChild(ordertable, "Order for Table " + table_number);
 

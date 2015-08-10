@@ -10,6 +10,9 @@ import com.htech.restaurant.fragment.OrderFragment;
 
 /**
  * Created by software on 7/29/15.
+ * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
+ *
+ * http://stackoverflow.com/questions/7263291/viewpager-pageradapter-not-updating-the-view
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -43,7 +46,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         }
 
     }
-
     // This method return the titles for the Tabs in the Tab Strip
 
     @Override
@@ -56,5 +58,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return NumbOfTabs;
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

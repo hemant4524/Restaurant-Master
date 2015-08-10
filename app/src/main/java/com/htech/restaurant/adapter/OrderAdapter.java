@@ -41,7 +41,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.TableViewHol
         Log.d(TAG, "category name" + order.getName());
 
         tableViewHolder.tvName.setText(order.getName());
-        tableViewHolder.tvPrice.setText(" "+mContext.getResources().getString(R.string.Rs) + "" + order.getPrice());
+        tableViewHolder.tvPrice.setText(" "+mContext.getResources().getString(R.string.Rs) + "" + order.getPrice() +" x "+ order.getQty());
 
         tableViewHolder.tvName.setOnClickListener(new View.OnClickListener() {
             @Override

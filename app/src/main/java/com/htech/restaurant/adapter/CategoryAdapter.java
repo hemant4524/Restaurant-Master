@@ -40,21 +40,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.TableV
 
     @Override
     public void onBindViewHolder(TableViewHolder tableViewHolder, final int i) {
-        MainMenu category = mCategories.get(i);
+        final MainMenu category = mCategories.get(i);
         Log.d(TAG, "category name" + category.getCatName());
         tableViewHolder.textView.setText(category.getCatName());
 
         tableViewHolder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onItemClickListener(i);
+                onItemClickListener.onItemClickListener(i,category.getCatName());
             }
         });
 
         tableViewHolder.imageViewDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickListener.onItemClickListener(i);
+                onItemClickListener.onItemClickListener(i,category.getCatName());
             }
         });
 
@@ -81,6 +81,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.TableV
 
 
     public interface OnItemClickListener {
-        void onItemClickListener(int position);
+        void onItemClickListener(int position, String catName);
     }
 }

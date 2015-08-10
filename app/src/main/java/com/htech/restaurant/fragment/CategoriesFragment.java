@@ -60,9 +60,10 @@ public class CategoriesFragment extends Fragment implements CategoryAdapter.OnIt
     }
 
     @Override
-    public void onItemClickListener(int menuid) {
+    public void onItemClickListener(int menuid, String catName) {
         Intent intent = new Intent(getActivity(), MenuDetailActivity.class);
         intent.putExtra("MenuId",menuid);
+        intent.putExtra("MenuName",catName);
         startActivity(intent);
     }
 }

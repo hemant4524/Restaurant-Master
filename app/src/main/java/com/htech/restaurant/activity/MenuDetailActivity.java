@@ -1,12 +1,15 @@
 package com.htech.restaurant.activity;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.htech.restaurant.MyApplication;
@@ -26,6 +29,7 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
     private DatabaseService mDatabaseService;
     private int mMainMenuId = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +40,19 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
         mMainMenuId = getIntent().getIntExtra("MenuId", 0);
         Log.d(TAG, "selected menu id:" + mMainMenuId);
 
+        // Get menu name
+        String menuName = getIntent().getStringExtra("MenuName");
+        Log.d(TAG, "selected menuName :" + menuName);
+
+        mToolbar.setTitle(menuName);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        upArrow.setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_menu_detail_recyclerview);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -45,7 +62,14 @@ public class MenuDetailActivity extends AppCompatActivity implements SubCategory
 
 
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            Log.d(TAG,"Back pressed");
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
     /**
      * get submenu from database
      *

@@ -47,6 +47,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableViewHol
         tableViewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              //  Log.d(TAG, "order table id:" + Utils.readValueFromPreferences(mContext, KeyValueStore.KEY_ORDER_ID));
                 onItemClickListener.onItemClickListener(i);
             }
         });

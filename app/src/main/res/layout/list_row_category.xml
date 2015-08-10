@@ -19,8 +19,8 @@
 
             <ImageView
                 android:id="@+id/list_row_ivThumbnail"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:scaleType="centerCrop" />
@@ -35,12 +35,12 @@
                 android:padding="8dp"
                 android:text="1"
                 android:textColor="#ffc11318"
-                android:textSize="22dp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
             <ImageView
                 android:id="@+id/list_row_ivDetail"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:scaleType="fitCenter"
